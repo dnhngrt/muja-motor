@@ -3,192 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muja Motor - Sewa Motor Jogja</title>
+    
+    <!-- SEO Optimization -->
+    <title>Muja Motor | Sewa Motor Jogja Murah & Terpercaya Mulai 60rb</title>
+    <meta name="description" content="Sewa motor Jogja terbaik dengan unit lengkap: Beat, NMAX, PCX. Harga mulai 60rb/hari. Syarat mudah, layanan antar jemput stasiun & bandara gratis.">
+    <meta name="keywords" content="sewa motor jogja, rental motor jogja, sewa motor murah jogja, rental motor malioboro, muja motor jogja">
+    <meta property="og:title" content="Muja Motor - Sewa Motor Jogja Terpercaya">
+    <meta property="og:description" content="Liburan di Yogyakarta makin asik dengan armada motor gress dari Muja Motor. Cek katalog kami!">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=1200&q=80">
+    
+    <!-- Scripts & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #e5e7eb; }
-        .macos-shadow { box-shadow: 0 50px 100px -20px rgba(0,0,0,0.25), 0 30px 60px -30px rgba(0,0,0,0.3); }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
         [x-cloak] { display: none !important; }
+
+        /* macOS Window Styling */
+        .macos-blur { backdrop-filter: blur(25px); background: rgba(255, 255, 255, 0.75); }
+        .bg-jogja { 
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+            url('https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center; background-attachment: fixed;
+        }
+
+        /* Distractive WA Animations */
+        @keyframes soft-pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+        @keyframes distraction-wiggle {
+            0%, 90% { transform: rotate(0deg); }
+            92% { transform: rotate(-15deg); }
+            94% { transform: rotate(15deg); }
+            96% { transform: rotate(-15deg); }
+            98% { transform: rotate(15deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .wa-aura { position: absolute; inset: 0; border-radius: 9999px; background-color: #25D366; z-index: -1; animation: soft-pulse 2s cubic-bezier(0, 0, 0.2, 1) infinite; }
+        .animate-distract { animation: distraction-wiggle 6s ease-in-out infinite; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="p-4 md:p-10 flex items-center justify-center min-h-screen">
+<body class="bg-jogja min-h-screen flex items-center justify-center p-2 md:p-8">
 
-    <!-- MACOS WINDOW CONTAINER -->
-    <div x-data="mujaApp()" x-init="init()" x-cloak
-         class="w-full max-w-5xl bg-white/90 backdrop-blur-lg rounded-2xl macos-shadow overflow-hidden flex flex-col h-[85vh] border border-white/20">
+    <!-- MACOS BROWSER CONTAINER -->
+    <div x-data="mujaApp()" x-init="initApp()" x-cloak
+         class="macos-blur w-full max-w-5xl rounded-[32px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)] flex flex-col h-[90vh] md:h-[85vh] border border-white/40 overflow-hidden relative">
         
-        <!-- HEADER / TAB BAR -->
-        <div class="bg-[#f3f3f3] border-b border-gray-300 p-4 flex items-center gap-4">
-            <!-- Traffic Lights -->
-            <div class="flex gap-2 mr-2">
-                <div class="w-3 h-3 rounded-full bg-[#ff5f56] shadow-inner"></div>
-                <div class="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-inner"></div>
-                <div class="w-3 h-3 rounded-full bg-[#27c93f] shadow-inner"></div>
+        <!-- HEADER / TAB BAR (SAFARI STYLE) -->
+        <div class="bg-[#e5e5e5]/80 border-b border-gray-300 p-4 flex items-center gap-4 shrink-0">
+            <!-- Mac Buttons -->
+            <div class="flex gap-2 min-w-[50px]">
+                <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
             </div>
 
-            <!-- TABS -->
-            <div class="flex flex-1 gap-1 overflow-x-auto no-scrollbar">
-                <button @click="tab = 'home'" :class="tab === 'home' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'" class="px-4 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-2 whitespace-nowrap">
-                    <span class="w-2 h-2 rounded-full bg-blue-400"></span> Muja Motor
-                </button>
-                <button @click="tab = 'katalog'" :class="tab === 'katalog' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'" class="px-4 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-2 whitespace-nowrap">
-                    <span class="w-2 h-2 rounded-full bg-gray-300"></span> Katalog
-                </button>
-                <template x-if="isLoggedIn">
-                    <button @click="tab = 'admin'" :class="tab === 'admin' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'" class="px-4 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-2 whitespace-nowrap text-blue-600">
-                        <span class="w-2 h-2 rounded-full bg-blue-600"></span> Admin CMS
-                    </button>
-                </template>
+            <!-- TAB NAVIGATION -->
+            <div class="flex flex-1 gap-1 overflow-x-auto no-scrollbar justify-center md:justify-start">
+                <button @click="tab = 'home'" :class="tab === 'home' ? 'bg-white shadow-sm' : 'hover:bg-white/40'" class="px-5 py-1.5 text-xs font-bold rounded-xl transition-all duration-500 whitespace-nowrap">Home</button>
+                <button @click="tab = 'katalog'" :class="tab === 'katalog' ? 'bg-white shadow-sm' : 'hover:bg-white/40'" class="px-5 py-1.5 text-xs font-bold rounded-xl transition-all duration-500 whitespace-nowrap">Katalog</button>
+                <button @click="tab = 'review'" :class="tab === 'review' ? 'bg-white shadow-sm' : 'hover:bg-white/40'" class="px-5 py-1.5 text-xs font-bold rounded-xl transition-all duration-500 whitespace-nowrap">Testimoni</button>
             </div>
-
-            <!-- User Icon / Login -->
-            <button @click="isLoggedIn ? tab = 'admin' : showLogin = true" class="p-2 hover:bg-gray-200 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" :class="isLoggedIn ? 'text-blue-600' : 'text-gray-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-            </button>
         </div>
 
-        <!-- URL BAR -->
-        <div class="bg-white px-4 py-2 border-b border-gray-200 flex items-center gap-2">
-            <div class="flex-1 bg-gray-100 rounded-md py-1 px-4 text-[10px] text-gray-400 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-1.17-13.633A10.035 10.035 0 0112 3c1.288 0 2.511.231 3.64.65M12 11c0-3.517 1.009-6.799 2.753-9.571m-4.305 9.927l4.305 4.305M12 11l-4.305-4.305m4.305 4.305l-4.305 4.305m4.305-4.305l4.305-4.305" /></svg>
+        <!-- URL ADDRESS BAR -->
+        <div class="bg-white/50 px-4 py-2 border-b border-gray-200 flex items-center justify-center shrink-0">
+            <div class="w-full max-w-md bg-white/80 rounded-lg py-1 px-4 text-[10px] text-gray-400 flex items-center justify-center gap-2 border border-gray-100">
+                <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 <span>https://mujamotor.site/<span x-text="tab"></span></span>
             </div>
         </div>
 
-        <!-- CONTENT AREA -->
-        <div class="flex-1 overflow-y-auto bg-white p-6 md:p-10 scroll-smooth">
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-1 overflow-y-auto no-scrollbar relative p-6 md:p-12">
             
             <!-- HOME VIEW -->
-            <div x-show="tab === 'home'" x-transition class="flex flex-col md:flex-row items-center gap-10 py-10">
-                <div class="flex-1 space-y-6">
-                    <h1 class="text-5xl font-extrabold text-gray-900 leading-tight">Liburan di Jogja <br><span class="text-blue-600">Nggak Pake Ribet.</span></h1>
-                    <p class="text-gray-500 text-lg">Sewa motor mulai <span class="font-bold text-gray-900">Rp 60.000/hari</span>. Unit selalu baru, servis rutin, dan gratis antar-jemput stasiun!</p>
-                    <button @click="tab = 'katalog'" class="bg-gray-900 text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition-transform">Cek Unit Sekarang</button>
-                </div>
-                <div class="flex-1">
-                    <img src="https://images.unsplash.com/photo-1558981403-c5f91db95838?auto=format&fit=crop&w=800&q=80" class="rounded-3xl shadow-2xl rotate-2">
+            <div x-show="tab === 'home'" 
+                 x-transition:enter="transition ease-out duration-600 transform"
+                 x-transition:enter-start="opacity-0 scale-95 translate-y-8"
+                 x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                 class="h-full flex flex-col items-center justify-center text-center space-y-8">
+                
+                <header class="space-y-4">
+                    <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">Sewa Motor Jogja</span>
+                    <h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 leading-tight tracking-tighter">
+                        Muja <span class="text-blue-600">Motor.</span>
+                    </h1>
+                    <p class="text-lg md:text-2xl text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed italic" 
+                       x-text="currentDesc"></p>
+                </header>
+
+                <div class="flex flex-col md:flex-row gap-4 w-full justify-center">
+                    <button @click="tab = 'katalog'" class="bg-gray-900 text-white px-10 py-4 rounded-2xl font-bold text-lg transition-all hover:scale-105 hover:bg-blue-600 shadow-xl">Lihat Katalog</button>
+                    <a href="https://wa.me/6282233231356" target="_blank" class="bg-white text-gray-900 border-2 border-gray-100 px-10 py-4 rounded-2xl font-bold text-lg transition-all hover:scale-105 hover:bg-gray-50 flex items-center justify-center gap-2 shadow-xl">WhatsApp Kami</a>
                 </div>
             </div>
 
             <!-- KATALOG VIEW -->
-            <div x-show="tab === 'katalog'" x-transition>
-                <h2 class="text-3xl font-bold mb-8 text-center">Armada Terlengkap</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <template x-for="motor in motors" :key="motor.id">
-                        <div class="border rounded-2xl p-4 hover:border-blue-500 transition-all group">
-                            <img :src="motor.img" class="w-full h-40 object-cover rounded-xl mb-4 group-hover:scale-105 transition-transform">
-                            <p class="text-[10px] font-bold text-blue-600 uppercase" x-text="motor.type"></p>
-                            <h3 class="text-xl font-bold" x-text="motor.name"></h3>
-                            <div class="flex justify-between items-center mt-4">
-                                <p class="font-bold text-lg">Rp <span x-text="motor.price.toLocaleString()"></span><span class="text-xs text-gray-400">/hari</span></p>
-                                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold">Pesan</button>
+            <div x-show="tab === 'katalog'" 
+                 x-transition:enter="transition ease-out duration-600 transform"
+                 x-transition:enter-start="opacity-0 scale-95"
+                 class="space-y-12 pb-10">
+                <div class="text-center">
+                    <h2 class="text-3xl font-black text-gray-900">Armada Liburan</h2>
+                    <p class="text-gray-500 mt-2">Pilihan motor mulai <span class="font-bold text-gray-900 italic underline decoration-blue-500">60rb/hari</span></p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <template x-for="motor in catalog">
+                        <div class="bg-white/80 border border-white p-4 rounded-[32px] hover:shadow-2xl transition-all duration-500 group">
+                            <div class="overflow-hidden rounded-[24px] h-48 bg-gray-100 relative shadow-inner">
+                                <img :src="motor.img" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" :alt="motor.name">
+                                <div class="absolute top-4 right-4 bg-white/90 px-3 py-1 rounded-full text-[10px] font-black text-blue-600 shadow-sm" x-text="motor.tag"></div>
+                            </div>
+                            <div class="mt-5 space-y-4">
+                                <h3 class="text-xl font-extrabold text-gray-900" x-text="motor.name"></h3>
+                                <div class="flex items-center justify-between border-t border-gray-100 pt-4">
+                                    <div class="text-blue-600 font-black text-2xl">Rp <span x-text="motor.price"></span><span class="text-[10px] text-gray-400 font-normal">/hari</span></div>
+                                    <a :href="'https://wa.me/6282233231356?text=Halo%20Muja%20Motor,%20saya%20mau%20sewa%20' + motor.name" class="bg-gray-900 text-white p-3 rounded-xl hover:bg-blue-600 transition-all hover:scale-110">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </template>
                 </div>
             </div>
 
-            <!-- ADMIN CMS VIEW -->
-            <div x-show="tab === 'admin' && isLoggedIn" x-transition>
-                <div class="flex justify-between items-center mb-8">
-                    <h2 class="text-3xl font-bold text-blue-600">Admin Panel</h2>
-                    <button @click="logout()" class="text-red-500 font-bold bg-red-50 px-4 py-2 rounded-lg">Keluar</button>
+            <!-- REVIEW VIEW -->
+            <div x-show="tab === 'review'" 
+                 x-transition:enter="transition ease-out duration-600 transform"
+                 x-transition:enter-start="opacity-0 translate-x-12"
+                 class="h-full flex flex-col items-center justify-center text-center p-4">
+                <h2 class="text-4xl font-black mb-12 tracking-tighter">Testimoni Pelanggan</h2>
+                <div class="relative w-full max-w-xl min-h-[250px] flex items-center justify-center">
+                    <template x-for="(review, index) in reviews" :key="index">
+                        <div x-show="activeReview === index" 
+                             x-transition:enter="transition duration-700 opacity-0 scale-90"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             class="absolute inset-0 flex flex-col items-center justify-center space-y-6">
+                            <div class="text-yellow-400 text-xl tracking-widest">★★★★★</div>
+                            <p class="text-xl md:text-2xl font-semibold text-gray-800 leading-relaxed italic" x-text="'&ldquo;' + review.text + '&rdquo;'"></p>
+                            <div class="pt-4">
+                                <h4 class="font-black text-gray-900 uppercase tracking-widest text-sm" x-text="review.name"></h4>
+                                <p class="text-blue-500 text-[10px] font-bold mt-1 uppercase tracking-tighter">Verified Jogja Traveler</p>
+                            </div>
+                        </div>
+                    </template>
                 </div>
-                
-                <div class="bg-gray-50 rounded-2xl overflow-hidden border border-gray-200">
-                    <table class="w-full text-left border-collapse">
-                        <thead class="bg-gray-100 text-xs text-gray-500 uppercase">
-                            <tr>
-                                <th class="p-4">Unit</th>
-                                <th class="p-4">Tipe</th>
-                                <th class="p-4">Harga</th>
-                                <th class="p-4 text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <template x-for="motor in motors" :key="motor.id">
-                                <tr class="bg-white">
-                                    <td class="p-4 font-bold" x-text="motor.name"></td>
-                                    <td class="p-4 text-gray-500" x-text="motor.type"></td>
-                                    <td class="p-4 font-bold" x-text="'Rp ' + motor.price.toLocaleString()"></td>
-                                    <td class="p-4 text-center">
-                                        <button @click="deleteMotor(motor.id)" class="text-red-500 hover:bg-red-50 p-2 rounded">Hapus</button>
-                                    </td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-8 p-6 border-2 border-dashed border-gray-200 rounded-2xl text-center">
-                    <p class="text-gray-400">Fitur Tambah Unit segera hadir di versi Pro.</p>
+                <div class="flex gap-2 mt-12">
+                    <template x-for="(_, index) in reviews">
+                        <div class="h-1.5 transition-all duration-500 rounded-full" :class="activeReview === index ? 'w-10 bg-blue-600' : 'w-2 bg-gray-300'"></div>
+                    </template>
                 </div>
             </div>
-
-        </div>
+        </main>
+        
+        <!-- FOOTER INFO -->
+        <footer class="p-4 text-[10px] text-gray-400 flex justify-between bg-white/40 border-t border-gray-200 shrink-0">
+            <span>&copy; 2026 Muja Motor Jogja.</span>
+            <span class="font-black text-blue-600 uppercase tracking-widest">Kualitas Bintang 5</span>
+        </footer>
     </div>
 
-    <!-- LOGIN MODAL -->
-    <div x-show="showLogin" x-cloak class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-6 z-50">
-        <div @click.away="showLogin = false" class="bg-white rounded-3xl p-8 w-full max-w-sm shadow-2xl">
-            <h3 class="text-2xl font-bold mb-6 text-center">Muja Admin</h3>
-            <div class="space-y-4">
-                <input x-model="loginUser" type="text" placeholder="Username" class="w-full p-4 border rounded-xl outline-none focus:ring-2 ring-blue-500">
-                <input x-model="loginPass" type="password" placeholder="Password" class="w-full p-4 border rounded-xl outline-none focus:ring-2 ring-blue-500">
-                <button @click="login()" class="w-full bg-blue-600 text-white p-4 rounded-xl font-bold shadow-lg shadow-blue-200">Login Sekarang</button>
-                <button @click="showLogin = false" class="w-full text-gray-400 text-sm">Kembali</button>
-            </div>
+    <!-- SIMPLE DISTRACTIVE WA CTA -->
+    <a href="https://wa.me/6282233231356" target="_blank" 
+       class="fixed bottom-8 right-8 z-50 animate-distract group">
+        <!-- Aura Ring Animations -->
+        <div class="wa-aura"></div>
+        <div class="wa-aura" style="animation-delay: 1s;"></div>
+        
+        <!-- Main Icon -->
+        <div class="bg-[#25D366] text-white p-5 rounded-full shadow-[0_15px_30px_rgba(37,211,102,0.4)] hover:bg-[#20ba59] transition-all duration-300 flex items-center justify-center relative border-2 border-white/20">
+            <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.879 1.02 3.981 1.56 6.125 1.56h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
         </div>
-    </div>
+    </a>
 
     <script>
         function mujaApp() {
             return {
                 tab: 'home',
-                showLogin: false,
-                isLoggedIn: false,
-                loginUser: '',
-                loginPass: '',
-                motors: [],
-                
-                init() {
-                    const saved = localStorage.getItem('muja_motors');
-                    if(saved) {
-                        this.motors = JSON.parse(saved);
-                    } else {
-                        this.motors = [
-                            { id: 1, name: 'Honda Beat', type: 'Small Matic', price: 70000, img: 'https://images.unsplash.com/photo-1558981403-c5f91db95838?auto=format&fit=crop&w=400' },
-                            { id: 2, name: 'Honda PCX', type: 'Big Matic', price: 120000, img: 'https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?auto=format&fit=crop&w=400' },
-                            { id: 3, name: 'Yamaha NMAX', type: 'Big Matic', price: 110000, img: 'https://images.unsplash.com/photo-1622234030206-88007204787a?auto=format&fit=crop&w=400' }
-                        ];
-                    }
-                    this.isLoggedIn = localStorage.getItem('muja_auth') === 'true';
-                },
-
-                login() {
-                    if(this.loginUser === 'mujaadmin' && this.loginPass === 'mujaadmin') {
-                        this.isLoggedIn = true;
-                        localStorage.setItem('muja_auth', 'true');
-                        this.showLogin = false;
-                        this.tab = 'admin';
-                    } else {
-                        alert('Username/Password salah!');
-                    }
-                },
-
-                logout() {
-                    this.isLoggedIn = false;
-                    localStorage.removeItem('muja_auth');
-                    this.tab = 'home';
-                },
-
-                deleteMotor(id) {
-                    this.motors = this.motors.filter(m => m.id !== id);
-                    localStorage.setItem('muja_motors', JSON.stringify(this.motors));
+                currentDesc: '',
+                activeReview: 0,
+                descriptions: [
+                    "Solusi sewa motor terpercaya di Jogja. Armada gress, helm wangi, siap antar ke stasiun dan hotel!",
+                    "Liburan di Jogja makin asik tanpa macet. Unit matic lengkap mulai 60rb-an. Booking hari ini!",
+                    "Layanan rental motor 24 jam di Yogyakarta. Antar jemput gratis di Stasiun Tugu & Lempuyangan.",
+                    "Jelajahi setiap sudut kota Gudeg dengan motor prima dari Muja Motor. Murah, aman, dan bersahabat.",
+                    "Males kena macet Malioboro? Sewa motor di Muja aja. Syarat KTP mudah, proses sat-set!"
+                ],
+                catalog: [
+                    { name: 'Honda Beat', price: '70.000', tag: 'Terlaris', img: 'https://images.unsplash.com/photo-1558981403-c5f91db95838?auto=format&fit=crop&w=600&q=80' },
+                    { name: 'Yamaha NMAX', price: '110.000', tag: 'Nyaman', img: 'https://images.unsplash.com/photo-1622234030206-88007204787a?auto=format&fit=crop&w=600&q=80' },
+                    { name: 'Honda PCX', price: '120.000', tag: 'Premium', img: 'https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?auto=format&fit=crop&w=600&q=80' }
+                ],
+                reviews: [
+                    { name: 'Rizky Ramadhan', text: 'Adminnya ramah bgt, motor diantar tepat waktu di Stasiun Lempuyangan. Beat-nya irit parah!' },
+                    { name: 'Siti Aminah', text: 'Helmnya wangi bgt asli. PCX masih baru bgt, liburan ke Kaliurang jadi makin pede.' },
+                    { name: 'Budi Santoso', text: 'Sering ke Jogja dan selalu sewa di Muja. Harga jujur, nggak banyak drama pas pengembalian.' },
+                    { name: 'Anisa Putri', text: 'Proses booking via WA cepet bgt. Unit NMAX-nya fit bgt buat jalan jauh ke Gunung Kidul.' }
+                ],
+                initApp() {
+                    // Pick random description
+                    this.currentDesc = this.descriptions[Math.floor(Math.random() * this.descriptions.length)];
+                    // Start review slideshow
+                    setInterval(() => {
+                        this.activeReview = (this.activeReview + 1) % this.reviews.length;
+                    }, 5000);
                 }
             }
         }
